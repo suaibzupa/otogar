@@ -1,0 +1,40 @@
+.navbar-static-top .navbar-header .navbar-brand, .navbar-static-top  ul li a {
+    color: white !important;
+}
+
+.navbar-static-top .navbar-header .navbar-brand:hover, .navbar-static-top  ul li a:hover {
+    color: #cdcdcd !important;
+}
+
+.cars-panel{
+    margin: 10px !important;
+    border-radius: 0 !important;
+}
+
+.cars-panel .panel-heading{
+    border-radius: 0;
+}
+
+.filter-area {
+    border-radius: 0;
+}
+
+#price-slider {
+    margin-top: 80px;
+    width: 180px;
+    margin-left: 20px;
+    height: 10px;
+    margin-bottom: 15px;
+}
+
+.noUi-horizontal .noUi-handle{
+    width: 20px !important;
+    height: 20px !important;
+    background: #353535;
+    border: none;
+    box-shadow: none;
+}
+
+.noUi-horizontal .noUi-handle:before, .noUi-horizontal .noUi-handle:after{
+    background: transparent !important;
+}
