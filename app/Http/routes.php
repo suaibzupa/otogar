@@ -11,9 +11,15 @@
 |
 */
 
+Route::post('/api/filter', 'HomeController@filter');
+
+Route::post('/api/pull', 'HomeController@pull');
+
 Route::get('/', 'HomeController@mainPage');
 
 Route::get('/home', 'HomeController@mainPage');
+
+Route::get('/cars/{id}', 'HomeController@productPage');
 
 Route::auth();
 
