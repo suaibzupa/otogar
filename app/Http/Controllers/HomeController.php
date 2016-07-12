@@ -100,4 +100,13 @@ class HomeController extends Controller
 
         return view('product')->with(["carData"=>$carProperties]);
     }
+
+
+    public function admin() {
+
+        return view('adminMenu');
+    }
+
+
+
 }

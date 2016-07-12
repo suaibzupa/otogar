@@ -89,7 +89,7 @@
                     <div class="panel-heading">{{$car['vendor']}}</div>
                     <div class="panel-body">
                         <a href="{{url('/cars/'.$car['id'])}}">
-                            <img src="{{json_decode($car['images'])[0]}}">
+                            <img src="{{"assets/uploads/".json_decode($car['images'])[0]}}">
                         </a>
                     </div>
                     <div class="panel-footer">

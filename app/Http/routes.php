@@ -21,5 +21,11 @@ Route::get('/home', 'HomeController@mainPage');
 
 Route::get('/cars/{id}', 'HomeController@productPage');
 
+Route::get('/admin', 'AdminController@createOffer');
+
+Route::post('/admin', 'AdminController@createOffer');
+
+Route::get('/remove/{offer_id}', 'AdminController@removeOffer');
+
 Route::auth();
 
