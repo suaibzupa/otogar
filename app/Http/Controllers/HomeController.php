@@ -51,17 +51,62 @@ class HomeController extends Controller
     }
 
     /**
-     * Ajax interface for filtering data
+     * @param Request $request
      */
-    public function filter(){
+    public function search(Request $request) {
+        $requestData = $request->all();
 
+        if ($requestData['manufacturer'] == "all") {
+            $returnData = Car::all()->toArray();
+        } else {
+            $searchParameters = [];
+            $searchParameters["vendor"] = $requestData['manufacturer'];
+
+            $maxPrice = $requestData['priceRange']['max'];
+            $minPrice = $requestData['priceRange']['min'];
+
+            $minYear = $requestData['yearRange']['min'];
+            $maxYear = $requestData['yearRange']['end'];
+
+            if ($requestData['city'] != "all") {
+                $searchParameters['city'] = $requestData['city'];
+            }
+
+            if ($requestData['model'] != "all") {
+                $searchParameters['model'] = $requestData['model'];
+            }
+
+            if ($requestData['category'] != "all") {
+                $searchParameters['category'] = $requestData['category'];
+            }
+
+            $returnData = Car::where($searchParameters)->where(
+                "registration_year",
+                "<=",
+                $maxYear
+            )->where(
+                "registration_year",
+                ">=",
+                $minYear
+            )->where(
+                "price",
+                ">=",
+                $minPrice
+            )->where(
+                "price",
+                "<=",
+                $maxPrice
+            )->get()->toArray();
+        }
+
+        echo json_encode($returnData);
     }
 
     /**
      * Pulling completion data
      * @param $request
      */
-    public function pull(Request $request) {
+    public function filter(Request $request) {
         $data = $request->all();
         $requestData = $data['filter'];
 
@@ -72,14 +117,35 @@ class HomeController extends Controller
                 case 'manufacturer' :
                     if ($value == "all") {
                         $modelsArray = Models::all()->toArray();
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
                     } else {
-                        $manufacturer = Manufacturers::where('id', $value)->first();
-                        $modelsArray = Models::where('vendor', $manufacturer->vendor)->get(['model'])->toArray();
+                        $modelsArray = Car::where('vendor', $value)->get(['model'])->toArray();
+
+                        $categories = Car::where("vendor", $value)->get(['category'])->toArray();
+                        $cities = Car::where("vendor", $value)->get(['city'])->toArray();
                     }
 
                     foreach ($modelsArray as $model) {
                         $returnData['models'][] = $model['model'];
+
                     }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
+                    break;
+                case "model":
+
+                    break;
+
+                case "category" :
+
                     break;
                 default:
                     break;
