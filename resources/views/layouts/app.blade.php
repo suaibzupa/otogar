@@ -64,13 +64,15 @@
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
                     @else
+
+                        <li><a href="{{ url('/admin') }}">Offers Add</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                                <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout </a></li>
                             </ul>
                         </li>
                     @endif
@@ -86,64 +88,6 @@
 <script type="text/javascript" src="{{url('/assets/js/bootstrap.min.js')}}"></script>
 <script type="text/javascript" src="{{url('/assets/js/nouislider.min.js')}}"></script>
 <script type="text/javascript" src="{{url('/assets/js/main.js')}}"></script>
+<script type="text/javascript" src="{{url('/assets/js/filter.js')}}"></script>
 
-
-
-<script type="text/javascript">
-    $('#search-btn').click(function () {
-        var manufacturer = $('select[name="manufacturer"]').val();
-        var model = $('select[name="model"]').val();
-        var city = $('select[name="city"]').val();
-        var category = $('select[name="category"]').val();
-
-        var minPrice = $('#slider-snap-value-lower').text();
-        var maxPrice = $('#slider-snap-value-upper').text();
-
-        var startYear = $('#slider-year-snap-value-lower').text();
-        var endYear = $('#slider-year-snap-value-lower').text();
-
-
-        var queryData = {
-            "manufacturer": manufacturer,
-            "model": model,
-            "city": city,
-            "category": category,
-            "priceRange": {
-                "min": minPrice,
-                "max": maxPrice
-            },
-            "yearRange": {
-                "min": startYear,
-                "end": endYear
-            }
-        };
-
-        console.log(queryData)
-    });
-
-    $('select[name="manufacturer"]').on('change', function () {
-        var manufacturer = $(this).val();
-
-        $.ajax({
-            'type' : 'POST',
-            'url' : '/api/pull',
-            'data' : {
-                'filter' : {
-                    'manufacturer' : manufacturer
-                }
-            },
-            'headers': {
-                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-            },
-            success: function (data) {
-                var decodedData = JSON.parse(data);
-                $('select[name="model"]').html('');
-
-                $.each(decodedData["models"], function (index, value) {
-                    $('select[name="model"]').append("<option value='"+value+"'>"+value+"</option>");
-                });
-            }
-        });
-    });
-</script>
 </html>

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="menu row">
             <div class="product col-sm-6">
-                <a href="#"><img class="img-responsive" src="{{"/assets/uploads/".json_decode($carData['images'])[0]}}"><i class="btn btn-product fa fa-star"></i></a>
+                <a href="#"><img  class="img-responsive product col-sm-12" src="{{"/assets/uploads/".json_decode($carData['images'])[0]}}" > </a>
                 <hr>
                 <h2>{{$carData['vendor']}} </h2>
                 <p>{{$carData['description']}}</p>

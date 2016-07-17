@@ -1,19 +1,23 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <script   type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
 <div class="container">
     <div class="row">
         <div class="container">
             <div class="filter-area col-md-6 col-lg-6 col-sm-6 well">
                 <span class="center-block text-center">Search Filter</span>
+
                 <div class="filers-container row">
                     <div class="col-sm-2">Manufacturer</div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <select class="form-control" name="manufacturer">
+                            <select class="form-control" name="manufacturer" id="manufacturer">
                                 <option value="all">All</option>
                                 @foreach($cars as $car)
-                                    <option value="{{$car['id']}}">{{$car['vendor']}}</option>
+                                    <option value="{{$car['vendor']}}">{{$car['vendor']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -22,10 +26,10 @@
                     <div class="col-sm-2">Model</div>
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <select class="form-control" name="model">
+                            <select class="form-control" name="model" id="model">
                                 <option value="all">All</option>
                                 @foreach($models as $model)
-                                    <option value="{{$model['id']}}">{{$model['model']}}</option>
+                                    <option value="{{$model['model']}}">{{$model['model']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -37,7 +41,7 @@
                             <select class="form-control" name="category">
                                 <option value="all">All</option>
                                 @foreach($categories as $category)
-                                    <option value="{{$category['id']}}">{{$category['category']}}</option>
+                                    <option value="{{$category['category']}}">{{$category['category']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -49,7 +53,7 @@
                             <select class="form-control" name="city">
                                 <option value="all">All</option>
                                 @foreach($cities as $city)
-                                    <option value="{{$city['id']}}">{{$city['name']}}</option>
+                                    <option value="{{$city['name']}}">{{$city['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -72,8 +76,19 @@
                     </div>
 
                     <a href="javascript:void(0)" id="search-btn" class="btn btn-success">Search</a>
+                    <span class="no-results-filter label label-warning hidden">No results for this filter</span>
                 </div>
             </div>
+
+            <div class="col-md-6 col-lg-6 col-sm-6">
+                <div class="jumbotron">
+                    <div class="container text-center">
+                        <h1>Online Store</h1>
+                        <p>Mission, Vission & Values</p>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="container car-animated">
@@ -81,15 +96,36 @@
         </div>
     </div>
 
+    <select name="select1" id="select1">
+        <option value="1">Fruit</option>
+        <option value="2">Animal</option>
+        <option value="3">Bird</option>
+        <option value="4">Car</option>
+    </select>
+
+
+    <select name="select2" id="select2">
+        <option value="1">Banana</option>
+        <option value="1">Apple</option>
+        <option value="1">Orange</option>
+        <option value="2">Wolf</option>
+        <option value="2">Fox</option>
+        <option value="2">Bear</option>
+        <option value="3">Eagle</option>
+        <option value="3">Hawk</option>
+        <option value="4">BWM<option>
+    </select>
+
+
 
     <div class="row">
-        <div class="panel-group">
+        <div class="panel-group cars-container">
             @foreach($carList as $car)
                 <div class="panel panel-primary cars-panel" style="display: inline-block;">
                     <div class="panel-heading">{{$car['vendor']}}</div>
                     <div class="panel-body">
                         <a href="{{url('/cars/'.$car['id'])}}">
-                            <img src="{{"assets/uploads/".json_decode($car['images'])[0]}}">
+                            <img  src="{{"assets/uploads/".json_decode($car['images'])[0]}}" width="150px" height="100px" alt="Images">
                         </a>
                     </div>
                     <div class="panel-footer">
@@ -100,4 +136,20 @@
         </div>
     </div>
 </div>
+
+    <script type="text/javascript">
+
+        $("#select1").change(function() {
+            if ($(this).data('options') == undefined) {
+                /*Taking an array of all options-2 and kind of embedding it on the select1*/
+                $(this).data('options', $('#select2 option').clone());
+            }
+            var id = $(this).val();
+            var options = $(this).data('options').filter('[value=' + id + ']');
+            $('#select2').html(options);
+        });
+
+    </script>
+
+
 @endsection

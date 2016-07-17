@@ -12,8 +12,7 @@
 */
 
 Route::post('/api/filter', 'HomeController@filter');
-
-Route::post('/api/pull', 'HomeController@pull');
+Route::post('/api/search', 'HomeController@search');
 
 Route::get('/', 'HomeController@mainPage');
 
