@@ -46,8 +46,7 @@
 
 
                 <label for="manufacturer">Manufacturer</label>
-                <select class="form-control"  name="manufacturer">
-                    <option value="select">Select</option>
+                <select class="form-control"  name="manufacturer" id="manufacturer" >
                     @foreach($manufacturers as $manufacturer)
                         <option value="{{$manufacturer['vendor']}}">{{$manufacturer['vendor']}}</option>
                     @endforeach
@@ -57,7 +56,6 @@
 
                 <label name="model">Models</label>
                 <select  class="form-control" name="model">
-                    <option value="select">Select</option>
                     @foreach($models as $model)
                         <option value="{{$model['model']}}">{{$model['model']}}</option>
                     @endforeach
@@ -66,7 +64,6 @@
 
                 <label name="category">Category</label>
                 <select class="form-control" name="category">
-                    <option value="select">Select</option>
                     @foreach($categories as $category)
                         <option value="{{$category['category']}}">{{$category['category']}}</option>
                     @endforeach
@@ -87,12 +84,14 @@
 
                 <label name="city">City</label>
                 <select class="form-control"  name="city">
-                    <option value="select">Select</option>
+
                     @foreach($cities as $city)
-                        <option value="{{$city['name']}}">{{$city['name']}}</option>
+                        <option  value="{{$city['name']}}">{{$city['name']}}</option>
                     @endforeach
                 </select>
 
+                <label for="price">Price</label>
+                <input class="form-control"  name="price" placeholder="Price in TL" type="number">
 
                 <label for="images">Images</label>
                 <input class="form-control"  type="file" multiple name="images[]" accept="image/x-png, image/gif, image/jpeg">

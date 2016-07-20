@@ -48,6 +48,7 @@ class AdminController extends Controller
             $offer['registration_year'] = $data['year'];
             $offer['traveled'] = $data['traveled'];
             $offer['city'] = $data['city'];
+            $offer['price'] = $data['price'];
             $offer['images'] = json_encode($imagesArray);
             $offer['user_id'] = Auth::user()->id;
 
