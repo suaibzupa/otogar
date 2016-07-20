@@ -46,6 +46,58 @@ $(document).ready(function(){
 
     var filter = new Filter();
 
+
+
+    $('#generalSearch').click(function () { //general Search top box search
+
+        var generalS = $('input[name="generalS"]').val();
+
+
+        console.log(generalS);
+
+        var queryData = generalS;
+
+
+
+
+        $.ajax({
+            'type' : 'POST',
+            'url' : '/api/gSearch',
+            'data' : queryData,
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="_tokent"]').attr('content')
+            },
+            success: function (data) {
+                var parsedData = JSON.parse(data);
+
+                $('.cars-container').html('');
+
+                $.each(parsedData, function (property, value) {
+                    $('.cars-container').append(
+                        '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
+                        '<div class="panel-heading">'+value.vendor+'</div>'+
+                        '<div class="panel-body">'+
+                        '<a href="/cars/'+value.id+'">'+
+                        '<img  src="assets/uploads/'+JSON.parse(value.images)[0]+'" width="150px" height="100px" alt="Images">'+
+                        '</a>'+
+                        '</div>'+
+                        '<div class="panel-footer">'+
+                        '<span>Registration year: '+value.registration_year+'</span>'+
+                        '</div>'+
+                        '</div>');
+                });
+
+
+                console.log(parsedData);
+            }
+        });
+    });
+
+
+
+
+
+
     $('#search-btn').click(function () {
         var manufacturer = $('select[name="manufacturer"]').val();
         var model = $('select[name="model"]').val();
@@ -73,7 +125,7 @@ $(document).ready(function(){
                 "end": endYear
             }
         };
-        
+
         $.ajax({
             'type' : 'POST',
             'url' : '/api/search',
@@ -83,9 +135,9 @@ $(document).ready(function(){
             },
             success: function (data) {
                 var parsedData = JSON.parse(data);
-                
+
                 $('.cars-container').html('');
-                
+
                 $.each(parsedData, function (property, value) {
                     $('.cars-container').append(
                         '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
@@ -106,6 +158,12 @@ $(document).ready(function(){
             }
         });
     });
+
+
+
+
+
+
 
 
 
@@ -243,7 +301,7 @@ $(document).ready(function(){
                 $('.no-results-filter').addClass('hidden');
             }
 
-           
+
         });
     });
 

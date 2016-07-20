@@ -14,6 +14,9 @@
 Route::post('/api/filter', 'HomeController@filter');
 Route::post('/api/search', 'HomeController@search');
 
+Route::post('/api/gSearch', 'HomeController@gSearch');
+
+
 Route::get('/', 'HomeController@mainPage');
 
 Route::get('/home', 'HomeController@mainPage');

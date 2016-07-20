@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="_token" content="{{csrf_token()}}">
+    <meta name="_tokent" content="{{csrf_token()}}">
     <title>Otogar</title>
 
     <!-- Fonts -->
@@ -46,9 +47,9 @@
                 <div class="col-md-8">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
-                            <input type="text" class="form-control input-lg" placeholder="Search" />
+                            <input type="text" id="generalS" name="generalS" class="form-control input-lg" placeholder="Search" />
                     <span class="input-group-btn">
-                        <button class="btn btn-info btn-lg" type="button">
+                        <button class="btn btn-info btn-lg" id="generalSearch" name="generalSearch" type="button">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>

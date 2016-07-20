@@ -50,6 +50,44 @@ class HomeController extends Controller
         return view('home');
     }
 
+
+    /**
+     * @param Request $request
+     */
+    public function gSearch(Request $request) {
+
+        $requestData = $request->all();
+
+        $searchParameters = $requestData;
+
+
+            $returnData = Car::where($searchParameters, "vendor")->get()->toArray();
+        /*where(
+                "registration_year",
+                "<=",
+                $maxYear
+            )->where(
+                "registration_year",
+                ">=",
+                $minYear
+            )->where(
+                "price",
+                ">=",
+                $minPrice
+            )->where(
+                "price",
+                "<=",
+                $maxPrice
+            )->get()->toArray();*/
+
+
+        echo json_encode($returnData);
+    }
+
+
+
+
+
     /**
      * @param Request $request
      */
