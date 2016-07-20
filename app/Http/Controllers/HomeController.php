@@ -56,7 +56,7 @@ class HomeController extends Controller
     public function search(Request $request) {
         $requestData = $request->all();
 
-        if ($requestData['manufacturer'] == "all") {
+        if ($requestData['manufacturer'] == "all" && $requestData['model'] == "all" && $requestData['category'] == "all" && $requestData['city'] == "all"  ) {
             $returnData = Car::all()->toArray();
         } else {
             $searchParameters = [];
@@ -140,11 +140,41 @@ class HomeController extends Controller
                         $returnData['cities'][] = $c;
                     }
                     break;
-                case "model":
+                case 'model':
+                    if ($value == "all") {
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $categories = Car::where("model", $value)->get(['category'])->toArray();
+                        $cities = Car::where("model", $value)->get(['city'])->toArray();
+                    }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
 
                     break;
 
-                case "category" :
+                case 'category' :
+
+                    if ($value == "all") {
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $cities = Car::where("category", $value)->get(['city'])->toArray();
+                    }
+
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
 
                     break;
                 default:

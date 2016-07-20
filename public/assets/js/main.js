@@ -109,9 +109,9 @@ $(document).ready(function(){
 
 
 
-    $('select[name="manufacturer"]').on('change', function () {
-        var manufacturer = $(this).val();
+    $('select[name="manufacturer"]').on('change', function () { // this is manufacturer is changed
 
+        var manufacturer = $(this).val();
         var requestData = {
             'manufacturer' : manufacturer
         };
@@ -151,6 +151,103 @@ $(document).ready(function(){
             });
         });
     });
+
+
+
+
+
+    $('select[name="model"]').on('change', function () {
+
+
+        var model = $(this).val();
+
+
+
+        var requestData = {
+            'model' : model
+        };
+
+        filter.sendAjaxRequest(requestData, function (returnData) {
+
+            if ( typeof returnData.categories === 'undefined'
+                || typeof returnData.cities === "undefined"
+                || returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+
+            $.each(returnData, function (property, value) {
+                if (property == "categories") {
+                    $('select[name="category"]').html('');
+                    $('select[name="category"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="category"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                } else if (property == "cities") {
+                    $('select[name="city"]').html('');
+                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }
+            });
+        });
+    });
+
+
+
+    $('select[name="category"]').on('change', function () {
+
+        var category = $(this).val();
+
+        var requestData = {
+            'category' : category
+        };
+
+        filter.sendAjaxRequest(requestData, function (returnData) {
+
+            if ( typeof returnData.cities === "undefined"
+                || returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+            $.each(returnData, function (property, value) {
+                if (property == "cities") {
+                    $('select[name="city"]').html('');
+                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }
+            });
+        });
+    });
+
+    $('select[name="city"]').on('change', function () {
+
+        var city = $(this).val();
+
+        var requestData = {
+            'city' : city
+        };
+
+        filter.sendAjaxRequest(requestData, function (returnData) {
+
+            if (returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+           
+        });
+    });
+
+
 });
 
 
