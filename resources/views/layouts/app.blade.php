@@ -83,6 +83,7 @@
     </nav>
 
     @yield('content')
+
 </body>
 <!-- JavaScripts -->
 <script type="text/javascript" src="{{url('/assets/js/jquery-2.0.min.js')}}"></script>

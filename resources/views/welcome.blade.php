@@ -96,25 +96,10 @@
         </div>
     </div>
 
-    <select name="select1" id="select1">
-        <option value="1">Fruit</option>
-        <option value="2">Animal</option>
-        <option value="3">Bird</option>
-        <option value="4">Car</option>
-    </select>
 
 
-    <select name="select2" id="select2">
-        <option value="1">Banana</option>
-        <option value="1">Apple</option>
-        <option value="1">Orange</option>
-        <option value="2">Wolf</option>
-        <option value="2">Fox</option>
-        <option value="2">Bear</option>
-        <option value="3">Eagle</option>
-        <option value="3">Hawk</option>
-        <option value="4">BWM<option>
-    </select>
+
+
 
 
 
@@ -136,20 +121,5 @@
         </div>
     </div>
 </div>
-
-    <script type="text/javascript">
-
-        $("#select1").change(function() {
-            if ($(this).data('options') == undefined) {
-                /*Taking an array of all options-2 and kind of embedding it on the select1*/
-                $(this).data('options', $('#select2 option').clone());
-            }
-            var id = $(this).val();
-            var options = $(this).data('options').filter('[value=' + id + ']');
-            $('#select2').html(options);
-        });
-
-    </script>
-
 
 @endsection

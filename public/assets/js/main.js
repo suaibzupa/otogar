@@ -51,14 +51,10 @@ $(document).ready(function(){
     $('#generalSearch').click(function () { //general Search top box search
 
         var generalS = $('input[name="generalS"]').val();
-
-
         console.log(generalS);
-
-        var queryData = generalS;
-
-
-
+        var queryData = {
+            "generalS": generalS
+        } ;
 
         $.ajax({
             'type' : 'POST',

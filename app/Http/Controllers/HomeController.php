@@ -58,10 +58,20 @@ class HomeController extends Controller
 
         $requestData = $request->all();
 
-        $searchParameters = $requestData;
+        $searchParameters = $requestData['generalS'];
 
 
-            $returnData = Car::where($searchParameters, "vendor")->get()->toArray();
+            $returnData = Car::where('vendor', 'LIKE', "%$searchParameters%")->orwhere(
+                'model', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'category', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'city', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'registration_year', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'price', 'LIKE', "%$searchParameters%"
+            )->get()->toArray();
         /*where(
                 "registration_year",
                 "<=",
