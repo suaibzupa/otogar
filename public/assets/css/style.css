@@ -263,3 +263,11 @@
     margin-right: 15px;
     font-size: 1em;
 }
+
+
+.product {
+    margin: auto;
+    width: 60%;
+    border: 0px solid #dddddd;
+    height: 321px;
+}
