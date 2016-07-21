@@ -114,7 +114,9 @@
                         </a>
                     </div>
                     <div class="panel-footer">
-                        <span>Registration year: {{$car['registration_year']}}</span>
+                        <p><b>{{$car['registration_year']}}</b></p>
+                        <p><b>{{$car['model']}}</b></p>
+                        <p style="background-color:red" align="center"><strong>{{$car['price']}} TL</strong></p>
                     </div>
                 </div>
             @endforeach

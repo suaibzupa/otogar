@@ -54,7 +54,7 @@ class HomeController extends Controller
     /**
      * @param Request $request
      */
-    public function gSearch(Request $request) {
+    public function gSearch(Request $request) { //genel arama 
 
         $requestData = $request->all();
 
@@ -72,25 +72,7 @@ class HomeController extends Controller
             )->orwhere(
                 'price', 'LIKE', "%$searchParameters%"
             )->get()->toArray();
-        /*where(
-                "registration_year",
-                "<=",
-                $maxYear
-            )->where(
-                "registration_year",
-                ">=",
-                $minYear
-            )->where(
-                "price",
-                ">=",
-                $minPrice
-            )->where(
-                "price",
-                "<=",
-                $maxPrice
-            )->get()->toArray();*/
-
-
+        
         echo json_encode($returnData);
     }
 
@@ -101,7 +83,7 @@ class HomeController extends Controller
     /**
      * @param Request $request
      */
-    public function search(Request $request) {
+    public function search(Request $request) { //filterli arama
         $requestData = $request->all();
 
         if ($requestData['manufacturer'] == "all" && $requestData['model'] == "all" && $requestData['category'] == "all" && $requestData['city'] == "all"  ) {

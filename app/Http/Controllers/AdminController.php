@@ -94,4 +94,86 @@ class AdminController extends Controller
 
         return redirect('/admin');
     }
+
+
+    public function filter(Request $request) {
+        $data = $request->all();
+        $requestData = $data['filter'];
+
+        $returnData = '';
+
+        foreach($requestData as $id => $value) {
+            switch ($id) {
+                case 'manufacturer' :
+                    if ($value == "all") {
+                        $modelsArray = Models::all()->toArray();
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
+                    } else {
+                        $modelsArray = Car::where('vendor', $value)->get(['model'])->toArray();
+
+                        $categories = Car::where("vendor", $value)->get(['category'])->toArray();
+                        $cities = Car::where("vendor", $value)->get(['city'])->toArray();
+                    }
+
+                    foreach ($modelsArray as $model) {
+                        $returnData['models'][] = $model['model'];
+
+                    }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
+                    break;
+                case 'model':
+                    if ($value == "all") {
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $categories = Car::where("model", $value)->get(['category'])->toArray();
+                        $cities = Car::where("model", $value)->get(['city'])->toArray();
+                    }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
+
+                    break;
+
+                case 'category' :
+
+                    if ($value == "all") {
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $cities = Car::where("category", $value)->get(['city'])->toArray();
+                    }
+
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        echo json_encode($returnData);
+    }
+
+
+
 }
