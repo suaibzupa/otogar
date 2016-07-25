@@ -39,6 +39,9 @@ class HomeController extends Controller
             ]
         );
     }
+    public function aboutUs() {
+        return view('home');
+    }
     
     /**
      * Show the application dashboard.
@@ -150,7 +153,7 @@ class HomeController extends Controller
                         $categories = Categories::all()->toArray();
                         $cities = Cities::all()->toArray();
                     } else {
-                        $modelsArray = Car::where('vendor', $value)->get(['model'])->toArray();
+                        $modelsArray = car::where('vendor', $value)->get(['model'])->toArray();
 
                         $categories = Car::where("vendor", $value)->get(['category'])->toArray();
                         $cities = Car::where("vendor", $value)->get(['city'])->toArray();
@@ -178,6 +181,7 @@ class HomeController extends Controller
 
                         $categories = Car::where("model", $value)->get(['category'])->toArray();
                         $cities = Car::where("model", $value)->get(['city'])->toArray();
+
                     }
 
                     foreach ($categories as $category) {
@@ -197,13 +201,15 @@ class HomeController extends Controller
                         $cities = Cities::all()->toArray();
                     } else {
 
-                        $cities = Car::where("category", $value)->get(['city'])->toArray();
+                        $cities = Car::where("category", $value)->where("model" ,$value["model"])->get(['city'])->toArray();
                     }
 
 
                     foreach ($cities as $city) {
-                        $c = isset($city['city']) ? $city['city'] : $city['name'];
-                        $returnData['cities'][] = $c;
+
+                        //$c = isset($city['id']) ? $city['city'] : $city['name'];
+                        //$returnData['cities'][] = $c;
+                        $returnData['cities'][] = $city['city'];
                     }
 
                     break;

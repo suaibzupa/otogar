@@ -43,8 +43,13 @@
                     <li><a href="{{ url('/home') }}">Home</a></li>
 
                 </ul>
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url('/aboutus') }}">Hakkimizda</a></li>
 
-                <div class="col-md-8">
+                </ul>
+
+
+                <div class="col-md-6">
                     <div id="custom-search-input">
                         <div class="input-group col-md-12">
                             <input type="text" id="generalS" name="generalS" class="form-control input-lg" placeholder="Search" />
@@ -64,9 +69,10 @@
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
                         <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li style="background-color:red; border-style: solid; border-radius: 20px; "><a href="{{ url('/login') }}">Ilan Ver</a></li>
                     @else
 
-                        <li><a href="{{ url('/admin') }}">Offers Add</a></li>
+
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>
@@ -76,6 +82,7 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout </a></li>
                             </ul>
                         </li>
+                        <li><a href="{{ url('/admin') }}"  style="background-color:red; border-style: solid; border-radius: 10px; ">Offers Add</a></li>
                     @endif
                 </ul>
             </div>
@@ -91,5 +98,58 @@
 <script type="text/javascript" src="{{url('/assets/js/nouislider.min.js')}}"></script>
 <script type="text/javascript" src="{{url('/assets/js/main.js')}}"></script>
 <script type="text/javascript" src="{{url('/assets/js/filter.js')}}"></script>
+<script type="text/javascript" src="{{url('/assets/js/filterAdmin.js')}}"></script>
+
+
+/*
+<script type="text/javascript" > //admin add offer arkalara gore modelleri getir
+    $('select[name="manufacturer1"]').on('change', function () { // this is manufacturer is changed
+
+        var filterAdmin = new FilterAdmin();
+
+        console.log("man1 degisti");
+        var manufacturer = $(this).val();
+        var requestData = {
+            'manufacturer' : manufacturer
+        };
+
+        filterAdmin.sendAjaxRequest(requestData, function (returnData) {
+
+            if (typeof returnData.models === 'undefined'
+                    || typeof returnData.categories === 'undefined'
+                    || typeof returnData.cities === "undefined"
+                    || returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+
+            $.each(returnData, function (property, value) {
+                if (property == 'models') {
+                    $('select[name="model"]').html('');
+                    $.each(value, function (index , data) {
+                        $('select[name="model"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }
+              /*  else if (property == "categories") {
+                    $('select[name="category"]').html('');
+                    $('select[name="category"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="category"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                } else if (property == "cities") {
+                    $('select[name="city"]').html('');
+                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }*/
+            });
+        });
+    });
+
+</script>
+
 
 </html>

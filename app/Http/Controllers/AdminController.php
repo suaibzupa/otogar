@@ -96,7 +96,12 @@ class AdminController extends Controller
     }
 
 
-    public function filter(Request $request) {
+
+    /**
+     * Pulling completion data
+     * @param $request
+     */
+    public function filterAdmin(Request $request) {
         $data = $request->all();
         $requestData = $data['filter'];
 
@@ -110,7 +115,7 @@ class AdminController extends Controller
                         $categories = Categories::all()->toArray();
                         $cities = Cities::all()->toArray();
                     } else {
-                        $modelsArray = Car::where('vendor', $value)->get(['model'])->toArray();
+                        $modelsArray = models::where('vendor', $value)->get(['model'])->toArray();
 
                         $categories = Car::where("vendor", $value)->get(['category'])->toArray();
                         $cities = Car::where("vendor", $value)->get(['city'])->toArray();
@@ -138,6 +143,7 @@ class AdminController extends Controller
 
                         $categories = Car::where("model", $value)->get(['category'])->toArray();
                         $cities = Car::where("model", $value)->get(['city'])->toArray();
+
                     }
 
                     foreach ($categories as $category) {
@@ -157,13 +163,15 @@ class AdminController extends Controller
                         $cities = Cities::all()->toArray();
                     } else {
 
-                        $cities = Car::where("category", $value)->get(['city'])->toArray();
+                        $cities = Car::where("category", $value)->where("model" ,$value["model"])->get(['city'])->toArray();
                     }
 
 
                     foreach ($cities as $city) {
-                        $c = isset($city['city']) ? $city['city'] : $city['name'];
-                        $returnData['cities'][] = $c;
+
+                        //$c = isset($city['id']) ? $city['city'] : $city['name'];
+                        //$returnData['cities'][] = $c;
+                        $returnData['cities'][] = $city['city'];
                     }
 
                     break;
@@ -173,7 +181,5 @@ class AdminController extends Controller
         }
         echo json_encode($returnData);
     }
-
-
-
+   
 }

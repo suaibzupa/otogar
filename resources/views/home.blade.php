@@ -8,7 +8,11 @@
                 <div class="panel-heading">Dashboard</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    Bu sitenin yapilma surecinde emegi gecen herkese tesekkur ederiz.
+                    <br><br>
+                    Suat Kandis
+                    <br>
+                    Shuaib Zengo
                 </div>
             </div>
         </div>

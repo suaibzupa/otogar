@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
+
+    <script   type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
     <!-- Offer list -->
     <div class="col-md-6 col-lg-6 col-sm-6">
         <div class="col-md-6 col-lg-6 col-sm-6">
@@ -46,7 +48,7 @@
 
 
                 <label for="manufacturer">Manufacturer</label>
-                <select class="form-control"  name="manufacturer" id="manufacturer" >
+                <select class="form-control"  name="manufacturer1" id="manufacturer1" >
                     @foreach($manufacturers as $manufacturer)
                         <option value="{{$manufacturer['vendor']}}">{{$manufacturer['vendor']}}</option>
                     @endforeach
@@ -105,3 +107,4 @@
 
     </div>
 @endsection
+
