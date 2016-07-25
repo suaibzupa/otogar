@@ -82,7 +82,14 @@
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i> Logout </a></li>
                             </ul>
                         </li>
+
+                        @if ( 1 == Auth::user()->user_type)
+
                         <li><a href="{{ url('/admin') }}"  style="background-color:red; border-style: solid; border-radius: 10px; ">Offers Add</a></li>
+
+                        }
+                        @endif
+
                     @endif
                 </ul>
             </div>

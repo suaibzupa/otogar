@@ -75,10 +75,18 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
+
+
+                                        <div class="col-md-6">
+                                            <input type="hidden" id="user_type"  class="form-control" name="user_type" value="1">
+                                        </div>
+
+                                            <div class="form-group">
                                             <div class="col-md-6 col-md-offset-4">
                                                 <button type="submit" class="btn btn-primary">
+
                                                     <i class="fa fa-btn fa-user"></i> Register
+
                                                 </button>
                                             </div>
                                         </div>
@@ -156,6 +164,11 @@
                                     </span>
                                                 @endif
                                             </div>
+                                        </div>
+
+
+                                        <div class="col-md-6">
+                                            <input type="hidden" id="user_type"  class="form-control" name="user_type" value="2">
                                         </div>
 
                                         <div class="form-group">
