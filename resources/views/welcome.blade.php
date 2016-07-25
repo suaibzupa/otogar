@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <script   type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
 
 <div class="container">
     <div class="row">

@@ -271,7 +271,7 @@ $(document).ready(function(){
             'model' : model
         };
 
-        filterAdmin.sendAjaxRequest(requestData, function (returnData) {
+        filter.sendAjaxRequest(requestData, function (returnData) {
 
             if ( typeof returnData.categories === 'undefined'
                 || typeof returnData.cities === "undefined"

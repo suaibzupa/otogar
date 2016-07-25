@@ -153,7 +153,7 @@ class HomeController extends Controller
                         $categories = Categories::all()->toArray();
                         $cities = Cities::all()->toArray();
                     } else {
-                        $modelsArray = car::where('vendor', $value)->get(['model'])->toArray();
+                        $modelsArray = Car::where('vendor', $value)->get(['model'])->toArray();
 
                         $categories = Car::where("vendor", $value)->get(['category'])->toArray();
                         $cities = Car::where("vendor", $value)->get(['city'])->toArray();
@@ -200,6 +200,8 @@ class HomeController extends Controller
                     if ($value == "all") {
                         $cities = Cities::all()->toArray();
                     } else {
+
+                        if($value['model']=="all"){$cities = Car::where("category", $value)->get(['city'])->toArray();}
 
                         $cities = Car::where("category", $value)->where("model" ,$value["model"])->get(['city'])->toArray();
                     }
