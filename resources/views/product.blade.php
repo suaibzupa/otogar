@@ -4,21 +4,21 @@
 
     <div class="container">
         <div class="menu row">
-            <div class="product col-sm-6">
+            <div class="product col-sm-5">
                 <a href="#"><img  class="img-responsive product col-sm-12" src="{{"/assets/uploads/".json_decode($carData['images'])[0]}}" > </a>
                 <hr>
                 <h2>{{$carData['vendor']}} </h2>
                 <p>{{$carData['description']}}</p>
                 <hr>
-                <h2 class="text-right">$39</h2>
-                <button class="btn btn-primary btn-lg ">Add to Cart</button>
+                <h2 class="text-right">{{$carData['price']}} TL</h2>
+
                 <hr>
             </div>
 
-            <div class=" col-sm-1">
-                </div>
+            <div class=" col-sm-2">
+            </div>
 
-             <div class="product col-sm-5">
+             <div class="product1 col-sm-4">
                 <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#reviews">Reviews</a></li>
                     <li><a data-toggle="tab" href="#details">Details</a></li>

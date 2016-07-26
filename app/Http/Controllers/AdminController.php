@@ -42,7 +42,7 @@ class AdminController extends Controller
 
             $offer['headText'] = $data['headText'];
             $offer['description'] = $data['description'];
-            $offer['vendor'] = $data['manufacturer'];
+            $offer['vendor'] = $data['manufacturer1'];
             $offer['model'] = $data['model'];
             $offer['category'] = $data['category'];
             $offer['registration_year'] = $data['year'];
@@ -103,7 +103,7 @@ class AdminController extends Controller
      */
     public function filterAdmin(Request $request) {
         $data = $request->all();
-        $requestData = $data['filter'];
+        $requestData = $data['filterAdmin'];
 
         $returnData = '';
 
