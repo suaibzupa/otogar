@@ -9,10 +9,26 @@
 .cars-panel{
     margin: 10px !important;
     border-radius: 0 !important;
+
+
 }
 
 .cars-panel .panel-heading{
     border-radius: 0;
+    background-color: black;
+}
+
+
+
+.panel-primary>.panel-heading {
+    color: beige;
+    background-color: black!important;
+    border-color: black!important;
+    background-image: linear-gradient(to bottom,#333 0,#333 100%);
+}
+
+.panel-primary{
+    border-color: black;
 }
 
 .filter-area {
@@ -271,3 +287,6 @@
     border: 0px solid #dddddd;
     height: 321px;
 }
+
+.panel-default > .panel-heading {
+    background-color: black!important}

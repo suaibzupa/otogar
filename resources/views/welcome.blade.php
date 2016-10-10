@@ -8,7 +8,7 @@
     <div class="row">
         <div class="container">
             <div class="filter-area col-md-6 col-lg-6 col-sm-6 well">
-                <span class="center-block text-center">Search Filter</span>
+                <span class="center-block text-center">Search Filter</span>   <!--Arama kismi -->
 
                 <div class="filers-container row">
                     <div class="col-sm-2">Manufacturer</div>
@@ -80,13 +80,12 @@
                 </div>
             </div>
 
+            <!-- arama kismi -->
+
             <div class="col-md-6 col-lg-6 col-sm-6">
-                <div class="jumbotron">
-                    <div class="container text-center">
-                        <h1>Online Store</h1>
-                        <p>Mission, Vission & Values</p>
-                    </div>
-                </div>
+
+                       <img src="assets/img/cars/lamborghiniAv.jpg" alt="Lake Atitlan, Guatemala" style="width:100%" height="255">
+
             </div>
 
         </div>
@@ -110,7 +109,7 @@
                     <div class="panel-heading">{{$car['vendor']}}</div>
                     <div class="panel-body">
                         <a href="{{url('/cars/'.$car['id'])}}">
-                            <img  src="{{"assets/uploads/".json_decode($car['images'])[0]}}" width="150px" height="100px" alt="Images">
+                            <img  src="{{"assets/uploads/".json_decode($car['images'])[0]}}" width="182px" height="100px" alt="Images">
                         </a>
                     </div>
                     <div class="panel-footer">
