@@ -88,12 +88,16 @@ class HomeController extends Controller
      */
     public function search(Request $request) { //filterli arama
         $requestData = $request->all();
-
+/*
         if ($requestData['manufacturer'] == "all" && $requestData['model'] == "all" && $requestData['category'] == "all" && $requestData['city'] == "all"  ) {
             $returnData = Car::all()->toArray();
-        } else {
+        } else*/ {
+            
             $searchParameters = [];
-            $searchParameters["vendor"] = $requestData['manufacturer'];
+
+            if ($requestData['manufacturer'] != "all") {
+                $searchParameters["vendor"] = $requestData['manufacturer'];
+            }
 
             $maxPrice = $requestData['priceRange']['max'];
             $minPrice = $requestData['priceRange']['min'];
@@ -140,7 +144,7 @@ class HomeController extends Controller
      * @param $request
      */
     public function filter(Request $request) {
-        $data = $request->all();
+       $data = $request->all();
         $requestData = $data['filter'];
 
         $returnData = '';
