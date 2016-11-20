@@ -51,10 +51,15 @@
 
                     <br>
                     <div  class=" col-sm-9">
+
+                        <button type="button" class="btn btn-primary" value="1" id="likesButton" name="likesButton"   style="width: 570px">Like </button>
+
                         </div>
 
+                    <br>
+                    <br>
                     <div  class=" col-sm-3" >
-                        <button type="button" class="btn btn-primary">Like</button>
+
 
 
                         <hr>

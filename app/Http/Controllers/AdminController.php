@@ -20,6 +20,10 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
+
+   
+
+
     public function createOffer(Request $request) {
         $data = $request->all();
 

@@ -90,6 +90,10 @@
 
         </div>
 
+        <div  class=" col-sm-9">
+            <button type="button" class="btn btn-primary"  id="likes" name="likes"   style="width: 570px">Like </button>
+        </div>
+
         <div class="container car-animated">
                 <!-- #Animated car -->
         </div>

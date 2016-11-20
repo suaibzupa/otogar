@@ -42,6 +42,21 @@ class HomeController extends Controller
     public function aboutUs() {
         return view('home');
     }
+
+
+    public function likes() {
+
+        
+
+        Car::Where('id',"76")->increment('likesToplam');
+
+       // $returnData = Car::where('id', '76');
+
+       // echo json_encode($returnData);
+        echo "ok";
+        
+        
+    }
     
     /**
      * Show the application dashboard.
@@ -82,8 +97,39 @@ class HomeController extends Controller
 
 
 
+/*
 
-    /**
+    //likes ekle
+    public function likes(Request $request)
+    {
+        $requestData = $request->all();
+
+        $searchParameters = $requestData['likes'];
+
+
+      //  car::table('id',"78")->increment('likes', 3)->save();;
+
+        $returnData = Car::where('vendor', 'LIKE', "%$searchParameters%")->orwhere(
+            'model', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'category', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'city', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'registration_year', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'price', 'LIKE', "%$searchParameters%"
+        )->get()->toArray();
+
+       echo json_encode($returnData);
+
+
+    }
+
+        */
+
+
+        /**
      * @param Request $request
      */
     public function search(Request $request) { //filterli arama

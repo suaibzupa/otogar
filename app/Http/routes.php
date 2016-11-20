@@ -20,11 +20,13 @@ Route::post('/api/search', 'HomeController@search');
 
 Route::post('/api/gSearch', 'HomeController@gSearch');
 
+Route::post('/api/likes', 'HomeController@likes'); //likes increase 
+
 
 Route::get('/', 'HomeController@mainPage');
 
 Route::get('/home', 'HomeController@mainPage');
-Route::get('/aboutus', 'HomeController@aboutUs');
+//Route::get('/likes', 'HomeController@likes');
 
 Route::get('/cars/{id}', 'HomeController@productPage');
 

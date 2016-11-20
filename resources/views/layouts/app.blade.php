@@ -110,6 +110,7 @@
 
 /*
 <script type="text/javascript" > //admin add offer arkalara gore modelleri getir
+
     $('select[name="manufacturer1"]').on('change', function () { // this is manufacturer is changed
 
         var filterAdmin = new FilterAdmin();
@@ -155,6 +156,132 @@
             });
         });
     });
+
+/*
+
+    $("#likes").click(function() {
+        $('#counter').html(function(i, val) {
+            $.ajax({
+                url: '/path/to/script/',
+                type: 'POST',
+                data: {increment: true},
+                success: function() { alert('Request has returned') }
+            });
+            return +val+1;
+        });
+    })
+    */
+
+/*
+    $('#likesButton').click(function () { //general Search top box search
+
+        var likes = $('input[name="likes"]').val();
+        console.log(likes);
+        var queryData = {
+            "likes": likes
+        } ;
+
+        $.ajax({
+            'type' : 'POST',
+            'url' : '/api/likes',
+
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="_tokent"]').attr('content')
+            },
+            success: function (data) {
+                var parsedData = JSON.parse(data);
+
+                $('.cars-container').html('');
+
+                $.each(parsedData, function (property, value) {
+                    $('.cars-container').append(
+                            '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
+                            '<div class="panel-heading">'+value.vendor+'</div>'+
+                            '<div class="panel-body">'+
+                            '<a href="/cars/'+value.id+'">'+
+                            '<img  src="assets/uploads/'+JSON.parse(value.images)[0]+'" width="150px" height="100px" alt="Images">'+
+                            '</a>'+
+                            '</div>'+
+                            '<div class="panel-footer">'+
+                            '<span>Registration year: '+value.registration_year+'</span>'+
+                            '</div>'+
+                            '</div>');
+                });
+
+
+                console.log(parsedData);
+            }
+        });
+    });
+*/
+
+
+    $('#likesButton').click(function () { //general Search top box search
+
+    //    var likes = $('input[name="likes"]').val();
+     //   console.log(likes);
+
+        // var queryData = {
+        //    "likes": likes
+       // } ;
+
+        $.ajax({
+            'type' : 'POST',
+            'url' : '/api/likes',
+           // 'data' : queryData,
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="_tokent"]').attr('content')
+            },
+            success: function (data) {
+              /*  var parsedData = JSON.parse(data);
+
+                $('.cars-container').html('');
+
+                $.each(parsedData, function (property, value) {
+                    $('.cars-container').append(
+                            '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
+                            '<div class="panel-heading">'+value.vendor+'</div>'+
+                            '<div class="panel-body">'+
+                            '<a href="/cars/'+value.id+'">'+
+                            '<img  src="assets/uploads/'+JSON.parse(value.images)[0]+'" width="150px" height="100px" alt="Images">'+
+                            '</a>'+
+                            '</div>'+
+                            '<div class="panel-footer">'+
+                            '<span>Registration year: '+value.registration_year+'</span>'+
+                            '</div>'+
+                            '</div>');
+                });
+
+
+                console.log(parsedData);*/
+            }
+        });
+    });
+
+
+
+
+/*
+    $('#likesButton').click(function () {
+           // log("okkkkkk");
+            var request = $.ajax({
+                type: 'POST',
+                url:  '/api/likes'
+            });
+            request.done(function( msg ) {
+
+                alert('Success');
+                return;
+
+            });
+            request.fail(function(jqXHR, textStatus) {
+                alert( "Request failed: " + textStatus );
+            });
+
+    });
+
+*/
+
 
 </script>
 

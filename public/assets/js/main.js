@@ -49,6 +49,9 @@ $(document).ready(function(){
 
 
 
+   
+/*
+
     $('#generalSearch').click(function () { //general Search top box search
 
         var generalS = $('input[name="generalS"]').val();
@@ -90,10 +93,7 @@ $(document).ready(function(){
         });
     });
 
-
-
-
-
+*/
 
     $('#search-btn').click(function () {
         var manufacturer = $('select[name="manufacturer"]').val();
