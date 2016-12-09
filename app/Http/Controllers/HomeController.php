@@ -10,6 +10,10 @@ use App\Manufacturers;
 use App\Models;
 use Illuminate\Http\Request;
 
+
+
+
+
 class HomeController extends Controller
 {
     /**
@@ -17,6 +21,13 @@ class HomeController extends Controller
      *
      * @return mixed
      */
+
+
+
+    protected $carIdLike;
+
+
+
     public function __construct()
     {
         //$this->middleware('auth');
@@ -27,7 +38,7 @@ class HomeController extends Controller
         $cities = Cities::all()->toArray();
         $models = Models::all()->toArray();
         $categories = Categories::all()->toArray();
-        $carList = Car::all()->toArray();
+        $carList = Car::orderBy('price', 'desc')->get()->toArray();
 
         return view('welcome')->with(
             [
@@ -39,23 +50,25 @@ class HomeController extends Controller
             ]
         );
     }
+    
     public function aboutUs() {
+
+
         return view('home');
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
 
-    public function likes() {
+    public function likes($id) {
+        $car = Car::where('id', $id)->get()->first();
 
-        
+        $car->likesToplam = $car->likesToplam + 1;
+        $car->save();
 
-        Car::Where('id',"76")->increment('likesToplam');
-
-       // $returnData = Car::where('id', '76');
-
-       // echo json_encode($returnData);
-        echo "ok";
-        
-        
+        return $car->likesToplam;
     }
     
     /**
@@ -280,9 +293,11 @@ class HomeController extends Controller
     public function productPage(Request $request, $id) {
         $carId = $id;
 
+        $this->carIdLike = $id;
+
         $carProperties = Car::where('id', $carId)->first()->toArray();
 
-        return view('product')->with(["carData"=>$carProperties]);
+        return view('product')->with(["carData"=>$carProperties, 'id' => $id]);
     }
 
 
@@ -292,5 +307,14 @@ class HomeController extends Controller
     }
 
 
+    public function orderBy($type)
+    {
+        $carList = Car::all()->toArray();
+        if ($type != 'all') {
+            $carList = Car::orderBy('price', $type)->get()->toArray();
+        }
+
+        return json_encode($carList);
+    }
 
 }

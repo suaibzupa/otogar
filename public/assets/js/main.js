@@ -49,8 +49,7 @@ $(document).ready(function(){
 
 
 
-   
-/*
+
 
     $('#generalSearch').click(function () { //general Search top box search
 
@@ -93,7 +92,7 @@ $(document).ready(function(){
         });
     });
 
-*/
+
 
     $('#search-btn').click(function () {
         var manufacturer = $('select[name="manufacturer"]').val();

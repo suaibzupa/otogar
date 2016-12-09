@@ -20,7 +20,9 @@ Route::post('/api/search', 'HomeController@search');
 
 Route::post('/api/gSearch', 'HomeController@gSearch');
 
-Route::post('/api/likes', 'HomeController@likes'); //likes increase 
+Route::post('/api/likes/{id}', 'HomeController@likes');
+
+Route::post('/api/orderBy/{type}', 'HomeController@orderBy');
 
 
 Route::get('/', 'HomeController@mainPage');

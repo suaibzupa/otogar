@@ -217,43 +217,14 @@
 
 
     $('#likesButton').click(function () { //general Search top box search
-
-    //    var likes = $('input[name="likes"]').val();
-     //   console.log(likes);
-
-        // var queryData = {
-        //    "likes": likes
-       // } ;
-
         $.ajax({
-            'type' : 'POST',
-            'url' : '/api/likes',
-           // 'data' : queryData,
+            'type': 'POST',
+            'url': '/api/likes/' + id,
             'headers': {
                 'X-CSRF-TOKEN': $('meta[name="_tokent"]').attr('content')
             },
             success: function (data) {
-              /*  var parsedData = JSON.parse(data);
-
-                $('.cars-container').html('');
-
-                $.each(parsedData, function (property, value) {
-                    $('.cars-container').append(
-                            '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
-                            '<div class="panel-heading">'+value.vendor+'</div>'+
-                            '<div class="panel-body">'+
-                            '<a href="/cars/'+value.id+'">'+
-                            '<img  src="assets/uploads/'+JSON.parse(value.images)[0]+'" width="150px" height="100px" alt="Images">'+
-                            '</a>'+
-                            '</div>'+
-                            '<div class="panel-footer">'+
-                            '<span>Registration year: '+value.registration_year+'</span>'+
-                            '</div>'+
-                            '</div>');
-                });
-
-
-                console.log(parsedData);*/
+                $('#likesButton').text("Like " + data);
             }
         });
     });
@@ -281,6 +252,93 @@
     });
 
 */
+
+
+
+    $('#search-btn').click(function () {
+        var manufacturer = $('select[name="manufacturer"]').val();
+        var model = $('select[name="model"]').val();
+        var city = $('select[name="city"]').val();
+        var category = $('select[name="category"]').val();
+
+        var minPrice = $('#slider-snap-value-lower').text();
+        var maxPrice = $('#slider-snap-value-upper').text();
+
+        var startYear = $('#slider-year-snap-value-lower').text();
+        var endYear = $('#slider-year-snap-value-upper').text();
+
+
+        var queryData = {
+            "manufacturer": manufacturer,
+            "model": model,
+            "city": city,
+            "category": category,
+            "priceRange": {
+                "min": minPrice,
+                "max": maxPrice
+            },
+            "yearRange": {
+                "min": startYear,
+                "end": endYear
+            }
+        };
+
+        $.ajax({
+            'type' : 'POST',
+            'url' : '/api/search',
+            'data' : queryData,
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+            },
+            success: function (data) {
+                var parsedData = JSON.parse(data);
+
+                $('.cars-container').html('');
+
+                $.each(parsedData, function (property, value) {
+                    $('.cars-container').append(
+                            '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
+                            '<div class="panel-heading">'+value.vendor+'</div>'+
+                            '<div class="panel-body">'+
+                            '<a href="/cars/'+value.id+'">'+
+                            '<img  src="assets/uploads/'+JSON.parse(value.images)[0]+'" width="150px" height="100px" alt="Images">'+
+                            '</a>'+
+                            '</div>'+
+                            '<div class="panel-footer">'+
+                            '<span> '+value.registration_year+'</span>'+
+                            '<br>'+
+                            '<span> '+value.model+'</span>'+
+                            '<br>'+
+                            '<p  style="background-color:red" align="center"> '+value.price+'</p>'+
+                            '</div>'+
+                            '</div>');
+                });
+
+
+                console.log(parsedData);
+            }
+        });
+    });
+
+
+
+
+
+    $('select[name="orderBy"]').on('change', function () {
+        $.ajax({
+            'type': 'POST',
+            'url': '/api/orderBy/' + $(this).val(),
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="_tokent"]').attr('content')
+            },
+            success: function (data) {
+                //@TODO data buraya gelecek, buradam araba listesini tekrar siralaycaksin
+                console.log(JSON.parse(data));
+            }
+        });
+    });
+
+
 
 
 </script>

@@ -52,7 +52,9 @@
                     <br>
                     <div  class=" col-sm-9">
 
-                        <button type="button" class="btn btn-primary" value="1" id="likesButton" name="likesButton"   style="width: 570px">Like </button>
+                        <button type="button" class="btn btn-primary" value="1" id="likesButton" name="likesButton"   style="width: 570px">Like {{$carData['likesToplam']}} </button>
+
+
 
                         </div>
 
@@ -74,14 +76,6 @@
                     </div>
 
                 </div>
-
-
-
-
-
-
-
-
             </div>
 
             <dev class="col-sm-1">
@@ -100,42 +94,27 @@
 
                         <h4>Buyer Reviews</h4>
                         <ul class="list-unstyled">
-                            <li class="clearfix">(Mike R.) I bought this last month before a.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(Karen) The size of this jacket was a little larger.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(CAS) I love this jacket. I purchased this as part..  <i class="fa fa-star fa-2x yellow pull-right"></i><i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(William D.) Great value with cool style. If you want.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-
-                            <li class="clearfix">(Mike R.) I bought this last month before a.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(Karen) The size of this jacket was a little larger.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(CAS) I love this jacket. I purchased this as part..  <i class="fa fa-star fa-2x yellow pull-right"></i><i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(William D.) Great value with cool style. If you want.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-
-
-                            <li class="clearfix">(Mike R.) I bought this last month before a.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(Karen) The size of this jacket was a little larger.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(CAS) I love this jacket. I purchased this as part..  <i class="fa fa-star fa-2x yellow pull-right"></i><i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(William D.) Great value with cool style. If you want.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
 
 
 
                         </ul>
 
+                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['category']}} </abbr></h2>
+                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['registration_year']}} </abbr></h2>
+                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['traveled']}} KM</abbr></h2>
+                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['registration_year']}} </abbr></h2>
                     </div>
-                    <div class="tab-pane" id="details"><h4>Product Information</h4></div>
+                    <div class="tab-pane" id="details"><h4> - {{$carData['headText']}} <br> - {{$carData['description']}}</h4></div>
                     <div class="tab-pane" id="sizing"><h4>Size Chart</h4></div>
                 </div>
-
              </div>
-
-
-
-
         </div>
-
-
-
-
     </div>
+    <script>
+        var id = '{{$id}}';
+
+
+    </script>
 @endsection
 
 

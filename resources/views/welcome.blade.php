@@ -105,9 +105,9 @@
 
 
         <div class="col-lg-2">
-            <select class="form-control" name="sort">
-                    <option value="all">Fiyat - Azalan</option>
-                    <option value="all">Fiyat - Artan</option>
+            <select class="form-control" name="orderBy">
+                    <option value="desc">Fiyat - Azalan</option>
+                    <option value="asc">Fiyat - Artan</option>
                     <option value="all">Yil</option>
             </select>
 
