@@ -45,6 +45,54 @@ $(document).ready(function(){
 
 
     var filter = new Filter();
+    var filterAdmin = new FilterAdmin();
+
+
+
+
+
+    $('#generalSearch').click(function () { //general Search top box search
+
+        var generalS = $('input[name="generalS"]').val();
+        console.log(generalS);
+        var queryData = {
+            "generalS": generalS
+        } ;
+
+        $.ajax({
+            'type' : 'POST',
+            'url' : '/api/gSearch',
+            'data' : queryData,
+            'headers': {
+                'X-CSRF-TOKEN': $('meta[name="_tokent"]').attr('content')
+            },
+            success: function (data) {
+                var parsedData = JSON.parse(data);
+
+                $('.cars-container').html('');
+
+                $.each(parsedData, function (property, value) {
+                    $('.cars-container').append(
+                        '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
+                        '<div class="panel-heading">'+value.vendor+'</div>'+
+                        '<div class="panel-body">'+
+                        '<a href="/cars/'+value.id+'">'+
+                        '<img  src="assets/uploads/'+JSON.parse(value.images)[0]+'" width="150px" height="100px" alt="Images">'+
+                        '</a>'+
+                        '</div>'+
+                        '<div class="panel-footer">'+
+                        '<span>Registration year: '+value.registration_year+'</span>'+
+                        '</div>'+
+                        '</div>');
+                });
+
+
+                console.log(parsedData);
+            }
+        });
+    });
+
+
 
     $('#search-btn').click(function () {
         var manufacturer = $('select[name="manufacturer"]').val();
@@ -73,7 +121,7 @@ $(document).ready(function(){
                 "end": endYear
             }
         };
-        
+
         $.ajax({
             'type' : 'POST',
             'url' : '/api/search',
@@ -83,9 +131,9 @@ $(document).ready(function(){
             },
             success: function (data) {
                 var parsedData = JSON.parse(data);
-                
+
                 $('.cars-container').html('');
-                
+
                 $.each(parsedData, function (property, value) {
                     $('.cars-container').append(
                         '<div class="panel panel-primary cars-panel" style="display: inline-block;">'+
@@ -96,7 +144,11 @@ $(document).ready(function(){
                                 '</a>'+
                             '</div>'+
                             '<div class="panel-footer">'+
-                                '<span>Registration year: '+value.registration_year+'</span>'+
+                                '<span> '+value.registration_year+'</span>'+
+                                 '<br>'+
+                                '<span> '+value.model+'</span>'+
+                                '<br>'+
+                                '<p  style="background-color:red" align="center"> '+value.price+'</p>'+
                             '</div>'+
                         '</div>');
                 });
@@ -109,9 +161,15 @@ $(document).ready(function(){
 
 
 
-    $('select[name="manufacturer"]').on('change', function () {
-        var manufacturer = $(this).val();
 
+
+
+
+
+
+    $('select[name="manufacturer"]').on('change', function () { // this is manufacturer is changed
+
+        var manufacturer = $(this).val();
         var requestData = {
             'manufacturer' : manufacturer
         };
@@ -151,6 +209,129 @@ $(document).ready(function(){
             });
         });
     });
+
+
+/*
+//admin add offer arkalara gore modelleri getir 
+    $('select[name="manufacturer1"]').on('change', function () { // this is manufacturer is changed
+
+        console.log("man1 degisti");
+        var manufacturer = $(this).val();
+        var requestData = {
+            'manufacturer' : manufacturer
+        };
+
+        filterAdmin.sendAjaxRequest(requestData, function (returnData) {
+
+            if (typeof returnData.models === 'undefined'
+                || typeof returnData.categories === 'undefined'
+                || typeof returnData.cities === "undefined"
+                || returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+
+            $.each(returnData, function (property, value) {
+                if (property == 'models') {
+                    $('select[name="model"]').html('');
+                    $('select[name="model"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="model"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                } else if (property == "categories") {
+                    $('select[name="category"]').html('');
+                    $('select[name="category"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="category"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                } else if (property == "cities") {
+                    $('select[name="city"]').html('');
+                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }
+            });
+        });
+    });
+
+*/
+
+    $('select[name="model"]').on('change', function () {
+
+
+        var model = $(this).val();
+
+
+
+        var requestData = {
+            'model' : model
+        };
+
+        filter.sendAjaxRequest(requestData, function (returnData) {
+
+            if ( typeof returnData.categories === 'undefined'
+                || typeof returnData.cities === "undefined"
+                || returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+
+            $.each(returnData, function (property, value) {
+                if (property == "categories") {
+                    $('select[name="category"]').html('');
+                    $('select[name="category"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="category"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                } else if (property == "cities") {
+                    $('select[name="city"]').html('');
+                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }
+            });
+        });
+    });
+
+
+
+    $('select[name="category"]').on('change', function () {
+
+        var category = $(this).val();
+
+        var requestData = {
+            'category' : category
+        };
+
+        filter.sendAjaxRequest(requestData, function (returnData) {
+
+            if ( typeof returnData.cities === "undefined"
+                || returnData == "") {
+                $('.no-results-filter').removeClass('hidden');
+            } else {
+                $('.no-results-filter').addClass('hidden');
+            }
+
+            $.each(returnData, function (property, value) {
+                if (property == "cities") {
+                    $('select[name="city"]').html('');
+                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $.each(value, function (index , data) {
+                        $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
+                    });
+                }
+            });
+        });
+    });
+
+   
+
 });
 
 

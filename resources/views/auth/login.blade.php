@@ -50,11 +50,16 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary btn-lg" >
                                     <i class="fa fa-btn fa-sign-in"></i> Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
+                                <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Password?</a>
+
+
+                                <button type="submit" class="btn btn-primary btn-lg btn-success " style="float: right;" >
+                                <a tabindex="7"  href="/register" class="btn-text" style="color: white">  Üye Ol </a>
+                                </button>
                             </div>
                         </div>
                     </form>

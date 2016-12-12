@@ -11,17 +11,24 @@
 |
 */
 
-/**
- * Suat
- * 
- */
+
+Route::post('/api/filterAdmin', 'AdminController@filterAdmin');
 
 Route::post('/api/filter', 'HomeController@filter');
+
 Route::post('/api/search', 'HomeController@search');
+
+Route::post('/api/gSearch', 'HomeController@gSearch');
+
+Route::post('/api/likes/{id}', 'HomeController@likes');
+
+Route::post('/api/orderBy/{type}', 'HomeController@orderBy');
+
 
 Route::get('/', 'HomeController@mainPage');
 
 Route::get('/home', 'HomeController@mainPage');
+//Route::get('/likes', 'HomeController@likes');
 
 Route::get('/cars/{id}', 'HomeController@productPage');
 

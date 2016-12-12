@@ -4,46 +4,142 @@
 
     <div class="container">
         <div class="menu row">
-            <div class="product col-sm-6">
-                <a href="#"><img  class="img-responsive product col-sm-12" src="{{"/assets/uploads/".json_decode($carData['images'])[0]}}" > </a>
-                <hr>
-                <h2>{{$carData['vendor']}} </h2>
-                <p>{{$carData['description']}}</p>
-                <hr>
-                <h2 class="text-right">$39</h2>
-                <button class="btn btn-primary btn-lg ">Add to Cart</button>
-                <hr>
-            </div>
+            <div class="col-sm-6">
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        @for($i = 0; $i < sizeof(json_decode($carData['images'])); $i++)
 
-            <div class=" col-sm-1">
+                        <li data-target="#myCarousel" data-slide-to="{$i}" class="active"></li>
+
+                        @endfor
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+
+                        @for($i = 0; $i < sizeof(json_decode($carData['images'])); $i++)
+                            <div class="item {{$i == 0 ? 'active' : ''}}">  <!-- Birince index'teki slide'i aktif yapar -->
+                                <a href="#"><img   src="{{"/assets/uploads/".json_decode($carData['images'])[$i]}}" > </a> <!-- Dinamik olarak index'e gore doner -->
+                                <div class="carousel-caption">
+                                    <h3>Chania</h3> <!-- Bunu da dinamic getir DB'den -->
+                                    <p>The atmosphere in Chania has a touch of Florence and Venice.</p> <!-- Burayi dinamic getir db'den -->
+                                </div>
+                            </div>
+                        @endfor
+
+
+
+                    </div>
+
+                    <!-- Left and right controls -->
+                    <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
                 </div>
 
-             <div class="product col-sm-5">
+
+
+
+
+                <div class="row" >
+
+                    <br>
+                    <div  class=" col-sm-9">
+
+                        <button type="button" class="btn btn-primary" value="1" id="likesButton" name="likesButton"   style="width: 570px">Like {{$carData['likesToplam']}} </button>
+
+
+
+                        </div>
+
+                    <br>
+                    <br>
+
+
+                    <div style="margin: 20px;">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Aciklama Amk
+
+
+                            </div>
+                            <div class="panel-body">
+
+                                <p class="text-left">{{$carData['headText']}} </p>
+
+
+                                <p class="text-left">{{$carData['description']}}</p>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+
+
+                </div>
+            </div>
+
+            <dev class="col-sm-1">
+
+            </dev>
+
+            <div class=" col-sm-5">
                 <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#reviews">Reviews</a></li>
-                    <li><a data-toggle="tab" href="#details">Details</a></li>
-                    <li><a data-toggle="tab" href="#sizing">Sizing</a></li>
+                    <li class="active"><a data-toggle="tab" href="#reviews">Araba Bilgileri</a></li>
+                    <li><a data-toggle="tab" href="#details">Açıklama</a></li>
+                    <li><a data-toggle="tab" href="#sizing">Ilrtişım Bılgılerı</a></li>
                 </ul>
 
                 <div class="tab-content">
                     <div class="tab-pane active" id="reviews">
 
-                        <h4>Buyer Reviews</h4>
-                        <ul class="list-unstyled">
-                            <li class="clearfix">(Mike R.) I bought this last month before a.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(Karen) The size of this jacket was a little larger.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(CAS) I love this jacket. I purchased this as part..  <i class="fa fa-star fa-2x yellow pull-right"></i><i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                            <li class="clearfix">(William D.) Great value with cool style. If you want.. <i class="fa fa-star fa-2x yellow pull-right"></i></li>
-                        </ul>
 
+                        <ul class="list-unstyled">
+
+
+
+                        </ul>
+                        <div class="col-md-8 col-lg8 col-xs-12">
+                        <div style="line-height: 24px; width: 100%; font-size: 18px">
+                            <div style="float: left; width: 50%; display: block;border-bottom: 1px solid #e9e9e9">Fiyat</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700; border-bottom: 1px solid #e9e9e9">{{$carData['price']}} TL</div>
+
+                            <div style="float: left; width: 50%; display: block; border-bottom: 1px solid #e9e9e9">Marka</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700;     border-bottom: 1px solid #e9e9e9">{{$carData['vendor']}}</div>
+
+                            <div style="float: left; width: 50%; display: block; border-bottom: 1px solid #e9e9e9">Kategori</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700;     border-bottom: 1px solid #e9e9e9">{{$carData['category']}}</div>
+
+                            <div style="float: left; width: 50%; display: block;border-bottom: 1px solid #e9e9e9">KM</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700; border-bottom: 1px solid #e9e9e9">{{$carData['traveled']}}</div>
+
+                            <div style="float: left; width: 50%; display: block;border-bottom: 1px solid #e9e9e9">Yil</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700; border-bottom: 1px solid #e9e9e9">{{$carData['registration_year']}} </div>
+
+                        </div>
+
+                        </div>
                     </div>
-                    <div class="tab-pane" id="details"><h4>Product Information</h4></div>
+                    <div class="tab-pane" id="details"><h4> - {{$carData['headText']}} <br> - {{$carData['description']}}</h4></div>
                     <div class="tab-pane" id="sizing"><h4>Size Chart</h4></div>
                 </div>
-
              </div>
         </div>
     </div>
+    <script>
+        var id = '{{$id}}';
+
+
+    </script>
 @endsection
 
 

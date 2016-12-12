@@ -2,13 +2,13 @@
 
 @section('content')
 
-    <script   type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
 
 <div class="container">
     <div class="row">
         <div class="container">
             <div class="filter-area col-md-6 col-lg-6 col-sm-6 well">
-                <span class="center-block text-center">Search Filter</span>
+                <span class="center-block text-center">Search Filter</span>   <!--Arama kismi -->
 
                 <div class="filers-container row">
                     <div class="col-sm-2">Manufacturer</div>
@@ -80,43 +80,40 @@
                 </div>
             </div>
 
+            <!-- arama kismi -->
+
             <div class="col-md-6 col-lg-6 col-sm-6">
-                <div class="jumbotron">
-                    <div class="container text-center">
-                        <h1>Online Store</h1>
-                        <p>Mission, Vission & Values</p>
-                    </div>
-                </div>
+
+                       <img src="assets/img/cars/lamborghiniAv.jpg" alt="Lake Atitlan, Guatemala" style="width:100%" height="255">
+
             </div>
 
         </div>
+
 
         <div class="container car-animated">
                 <!-- #Animated car -->
         </div>
     </div>
 
-    <select name="select1" id="select1">
-        <option value="1">Fruit</option>
-        <option value="2">Animal</option>
-        <option value="3">Bird</option>
-        <option value="4">Car</option>
-    </select>
+
+    <div class="row">
 
 
-    <select name="select2" id="select2">
-        <option value="1">Banana</option>
-        <option value="1">Apple</option>
-        <option value="1">Orange</option>
-        <option value="2">Wolf</option>
-        <option value="2">Fox</option>
-        <option value="2">Bear</option>
-        <option value="3">Eagle</option>
-        <option value="3">Hawk</option>
-        <option value="4">BWM<option>
-    </select>
+
+        <div class="col-lg-2">
+            <select class="form-control" name="orderBy">
+                    <option value="desc">Fiyat - Azalan</option>
+                    <option value="asc">Fiyat - Artan</option>
+                    <option value="all">Yil</option>
+            </select>
+
+        </div>
 
 
+
+
+    </div>
 
     <div class="row">
         <div class="panel-group cars-container">
@@ -125,31 +122,18 @@
                     <div class="panel-heading">{{$car['vendor']}}</div>
                     <div class="panel-body">
                         <a href="{{url('/cars/'.$car['id'])}}">
-                            <img  src="{{"assets/uploads/".json_decode($car['images'])[0]}}" width="150px" height="100px" alt="Images">
+                            <img  src="{{"assets/uploads/".json_decode($car['images'])[0]}}" width="182px" height="100px" alt="Images">
                         </a>
                     </div>
                     <div class="panel-footer">
-                        <span>Registration year: {{$car['registration_year']}}</span>
+                        <p><b>{{$car['registration_year']}}</b></p>
+                        <p><b>{{$car['model']}}</b></p>
+                        <p style="background-color:red" align="center"><strong>{{$car['price']}} TL</strong></p>
                     </div>
                 </div>
             @endforeach
         </div>
     </div>
 </div>
-
-    <script type="text/javascript">
-
-        $("#select1").change(function() {
-            if ($(this).data('options') == undefined) {
-                /*Taking an array of all options-2 and kind of embedding it on the select1*/
-                $(this).data('options', $('#select2 option').clone());
-            }
-            var id = $(this).val();
-            var options = $(this).data('options').filter('[value=' + id + ']');
-            $('#select2').html(options);
-        });
-
-    </script>
-
 
 @endsection

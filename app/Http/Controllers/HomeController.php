@@ -10,6 +10,10 @@ use App\Manufacturers;
 use App\Models;
 use Illuminate\Http\Request;
 
+
+
+
+
 class HomeController extends Controller
 {
     /**
@@ -17,6 +21,13 @@ class HomeController extends Controller
      *
      * @return mixed
      */
+
+
+
+    protected $carIdLike;
+
+
+
     public function __construct()
     {
         //$this->middleware('auth');
@@ -27,7 +38,7 @@ class HomeController extends Controller
         $cities = Cities::all()->toArray();
         $models = Models::all()->toArray();
         $categories = Categories::all()->toArray();
-        $carList = Car::all()->toArray();
+        $carList = Car::orderBy('price', 'desc')->get()->toArray();
 
         return view('welcome')->with(
             [
@@ -40,6 +51,26 @@ class HomeController extends Controller
         );
     }
     
+    public function aboutUs() {
+
+
+        return view('home');
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+
+    public function likes($id) {
+        $car = Car::where('id', $id)->get()->first();
+
+        $car->likesToplam = $car->likesToplam + 1;
+        $car->save();
+
+        return $car->likesToplam;
+    }
+    
     /**
      * Show the application dashboard.
      *
@@ -50,17 +81,82 @@ class HomeController extends Controller
         return view('home');
     }
 
+
     /**
      * @param Request $request
      */
-    public function search(Request $request) {
+    public function gSearch(Request $request) { //genel arama 
+
         $requestData = $request->all();
 
-        if ($requestData['manufacturer'] == "all") {
+        $searchParameters = $requestData['generalS'];
+
+
+            $returnData = Car::where('vendor', 'LIKE', "%$searchParameters%")->orwhere(
+                'model', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'category', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'city', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'registration_year', 'LIKE', "%$searchParameters%"
+            )->orwhere(
+                'price', 'LIKE', "%$searchParameters%"
+            )->get()->toArray();
+        
+        echo json_encode($returnData);
+    }
+
+
+
+
+/*
+
+    //likes ekle
+    public function likes(Request $request)
+    {
+        $requestData = $request->all();
+
+        $searchParameters = $requestData['likes'];
+
+
+      //  car::table('id',"78")->increment('likes', 3)->save();;
+
+        $returnData = Car::where('vendor', 'LIKE', "%$searchParameters%")->orwhere(
+            'model', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'category', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'city', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'registration_year', 'LIKE', "%$searchParameters%"
+        )->orwhere(
+            'price', 'LIKE', "%$searchParameters%"
+        )->get()->toArray();
+
+       echo json_encode($returnData);
+
+
+    }
+
+        */
+
+
+        /**
+     * @param Request $request
+     */
+    public function search(Request $request) { //filterli arama
+        $requestData = $request->all();
+/*
+        if ($requestData['manufacturer'] == "all" && $requestData['model'] == "all" && $requestData['category'] == "all" && $requestData['city'] == "all"  ) {
             $returnData = Car::all()->toArray();
-        } else {
+        } else*/ {
+            
             $searchParameters = [];
-            $searchParameters["vendor"] = $requestData['manufacturer'];
+
+            if ($requestData['manufacturer'] != "all") {
+                $searchParameters["vendor"] = $requestData['manufacturer'];
+            }
 
             $maxPrice = $requestData['priceRange']['max'];
             $minPrice = $requestData['priceRange']['min'];
@@ -107,7 +203,7 @@ class HomeController extends Controller
      * @param $request
      */
     public function filter(Request $request) {
-        $data = $request->all();
+       $data = $request->all();
         $requestData = $data['filter'];
 
         $returnData = '';
@@ -140,11 +236,46 @@ class HomeController extends Controller
                         $returnData['cities'][] = $c;
                     }
                     break;
-                case "model":
+                case 'model':
+                    if ($value == "all") {
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $categories = Car::where("model", $value)->get(['category'])->toArray();
+                        $cities = Car::where("model", $value)->get(['city'])->toArray();
+
+                    }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
 
                     break;
 
-                case "category" :
+                case 'category' :
+
+                    if ($value == "all") {
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        if($value['model']=="all"){$cities = Car::where("category", $value)->get(['city'])->toArray();}
+
+                        $cities = Car::where("category", $value)->where("model" ,$value["model"])->get(['city'])->toArray();
+                    }
+
+
+                    foreach ($cities as $city) {
+
+                        //$c = isset($city['id']) ? $city['city'] : $city['name'];
+                        //$returnData['cities'][] = $c;
+                        $returnData['cities'][] = $city['city'];
+                    }
 
                     break;
                 default:
@@ -162,9 +293,11 @@ class HomeController extends Controller
     public function productPage(Request $request, $id) {
         $carId = $id;
 
+        $this->carIdLike = $id;
+
         $carProperties = Car::where('id', $carId)->first()->toArray();
 
-        return view('product')->with(["carData"=>$carProperties]);
+        return view('product')->with(["carData"=>$carProperties, 'id' => $id]);
     }
 
 
@@ -174,5 +307,14 @@ class HomeController extends Controller
     }
 
 
+    public function orderBy($type)
+    {
+        $carList = Car::all()->toArray();
+        if ($type != 'all') {
+            $carList = Car::orderBy('price', $type)->get()->toArray();
+        }
+
+        return json_encode($carList);
+    }
 
 }

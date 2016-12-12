@@ -20,6 +20,10 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
 
+
+   
+
+
     public function createOffer(Request $request) {
         $data = $request->all();
 
@@ -42,12 +46,13 @@ class AdminController extends Controller
 
             $offer['headText'] = $data['headText'];
             $offer['description'] = $data['description'];
-            $offer['vendor'] = $data['manufacturer'];
+            $offer['vendor'] = $data['manufacturer1'];
             $offer['model'] = $data['model'];
             $offer['category'] = $data['category'];
             $offer['registration_year'] = $data['year'];
             $offer['traveled'] = $data['traveled'];
             $offer['city'] = $data['city'];
+            $offer['price'] = $data['price'];
             $offer['images'] = json_encode($imagesArray);
             $offer['user_id'] = Auth::user()->id;
 
@@ -93,4 +98,92 @@ class AdminController extends Controller
 
         return redirect('/admin');
     }
+
+
+
+    /**
+     * Pulling completion data
+     * @param $request
+     */
+    public function filterAdmin(Request $request) {
+        $data = $request->all();
+        $requestData = $data['filterAdmin'];
+
+        $returnData = '';
+
+        foreach($requestData as $id => $value) {
+            switch ($id) {
+                case 'manufacturer' :
+                    if ($value == "all") {
+                        $modelsArray = Models::all()->toArray();
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
+                    } else {
+                        $modelsArray = models::where('vendor', $value)->get(['model'])->toArray();
+
+                        $categories = Car::where("vendor", $value)->get(['category'])->toArray();
+                        $cities = Car::where("vendor", $value)->get(['city'])->toArray();
+                    }
+
+                    foreach ($modelsArray as $model) {
+                        $returnData['models'][] = $model['model'];
+
+                    }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
+                    break;
+                case 'model':
+                    if ($value == "all") {
+                        $categories = Categories::all()->toArray();
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $categories = Car::where("model", $value)->get(['category'])->toArray();
+                        $cities = Car::where("model", $value)->get(['city'])->toArray();
+
+                    }
+
+                    foreach ($categories as $category) {
+                        $returnData['categories'][] = $category['category'];
+                    }
+
+                    foreach ($cities as $city) {
+                        $c = isset($city['city']) ? $city['city'] : $city['name'];
+                        $returnData['cities'][] = $c;
+                    }
+
+                    break;
+
+                case 'category' :
+
+                    if ($value == "all") {
+                        $cities = Cities::all()->toArray();
+                    } else {
+
+                        $cities = Car::where("category", $value)->where("model" ,$value["model"])->get(['city'])->toArray();
+                    }
+
+
+                    foreach ($cities as $city) {
+
+                        //$c = isset($city['id']) ? $city['city'] : $city['name'];
+                        //$returnData['cities'][] = $c;
+                        $returnData['cities'][] = $city['city'];
+                    }
+
+                    break;
+                default:
+                    break;
+            }
+        }
+        echo json_encode($returnData);
+    }
+   
 }
