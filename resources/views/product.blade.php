@@ -60,20 +60,30 @@
 
                     <br>
                     <br>
-                    <div  class=" col-sm-3" >
 
 
+                    <div style="margin: 20px;">
 
-                        <hr>
-                        <h2 class="text-right" style="background-color: #3FB8AF">{{$carData['vendor']}} </h2>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                Aciklama Amk
 
-                        <hr>
-                        <h2 class="text-right" style="background-color: #3FB8AF" style="color: red">{{$carData['price']}} TL</h2>
 
-                        <hr>
+                            </div>
+                            <div class="panel-body">
+
+                                <p class="text-left">{{$carData['headText']}} </p>
+
+
+                                <p class="text-left">{{$carData['description']}}</p>
+                            </div>
+
+                        </div>
 
 
                     </div>
+
+
 
                 </div>
             </div>
@@ -92,17 +102,32 @@
                 <div class="tab-content">
                     <div class="tab-pane active" id="reviews">
 
-                        <h4>Buyer Reviews</h4>
+
                         <ul class="list-unstyled">
 
 
 
                         </ul>
+                        <div class="col-md-8 col-lg8 col-xs-12">
+                        <div style="line-height: 24px; width: 100%; font-size: 18px">
+                            <div style="float: left; width: 50%; display: block;border-bottom: 1px solid #e9e9e9">Fiyat</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700; border-bottom: 1px solid #e9e9e9">{{$carData['price']}} TL</div>
 
-                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['category']}} </abbr></h2>
-                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['registration_year']}} </abbr></h2>
-                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['traveled']}} KM</abbr></h2>
-                        <h2 class="text-left" style="background-color: #3FB8AF" style="color: red"> <abbr> {{$carData['registration_year']}} </abbr></h2>
+                            <div style="float: left; width: 50%; display: block; border-bottom: 1px solid #e9e9e9">Marka</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700;     border-bottom: 1px solid #e9e9e9">{{$carData['vendor']}}</div>
+
+                            <div style="float: left; width: 50%; display: block; border-bottom: 1px solid #e9e9e9">Kategori</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700;     border-bottom: 1px solid #e9e9e9">{{$carData['category']}}</div>
+
+                            <div style="float: left; width: 50%; display: block;border-bottom: 1px solid #e9e9e9">KM</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700; border-bottom: 1px solid #e9e9e9">{{$carData['traveled']}}</div>
+
+                            <div style="float: left; width: 50%; display: block;border-bottom: 1px solid #e9e9e9">Yil</div>
+                            <div style="float: left; width: 50%; margin: 0;font-weight: 700; border-bottom: 1px solid #e9e9e9">{{$carData['registration_year']}} </div>
+
+                        </div>
+
+                        </div>
                     </div>
                     <div class="tab-pane" id="details"><h4> - {{$carData['headText']}} <br> - {{$carData['description']}}</h4></div>
                     <div class="tab-pane" id="sizing"><h4>Size Chart</h4></div>
