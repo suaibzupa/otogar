@@ -253,7 +253,7 @@
 
 */
 
-
+/*
 
     $('#search-btn').click(function () {
         var manufacturer = $('select[name="manufacturer"]').val();
@@ -321,7 +321,7 @@
     });
 
 
-
+*/
 
 
     $('select[name="orderBy"]').on('change', function () {
