@@ -24,6 +24,9 @@ Route::post('/api/likes/{id}', 'HomeController@likes');
 
 Route::post('/api/orderBy/{type}', 'HomeController@orderBy');
 
+Route::post('/api/advancedsearchjs', 'HomeController@advancedsearchjs');
+
+Route::get('/advancedSearch/{aranan}', 'HomeController@advancedSearch');
 
 Route::get('/', 'HomeController@mainPage');
 
@@ -34,7 +37,13 @@ Route::get('/cars/{id}', 'HomeController@productPage');
 
 Route::get('/admin', 'AdminController@createOffer');
 
+Route::get('/profil', 'AdminController@profil');
+
 Route::post('/admin', 'AdminController@createOffer');
+
+Route::post('/profil/update_user', 'AdminController@updateUser');
+
+Route::post('/profil', 'AdminController@mesajGonder');
 
 Route::get('/remove/{offer_id}', 'AdminController@removeOffer');
 

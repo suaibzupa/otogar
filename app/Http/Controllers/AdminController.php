@@ -6,12 +6,14 @@ use App\Car;
 use App\Categories;
 use App\Cities;
 use App\Manufacturers;
+use App\Mesaj;
 use App\Models;
 use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 class AdminController extends Controller
 {
@@ -21,7 +23,117 @@ class AdminController extends Controller
     }
 
 
-   
+    public function profil() {
+
+        $user_info = User::where('id',Auth::user()->id)->first()->toArray();
+        $offers = Car::where('user_id', Auth::user()->id)->get()->toArray();
+        $cities = Cities::all()->toArray();
+        $gelen = Mesaj::where('kime',Auth::user()->id)
+                ->leftJoin('users','users.id','=','mesaj_kutusu.kimden')
+                ->get()->toArray();
+        $gonderilen = Mesaj::where('kimden',Auth::user()->id)
+                      ->leftJoin('users','users.id','=','mesaj_kutusu.kime')
+                      ->get()->toArray();
+
+        return view('/profil')->with(
+            [
+                "user_info" => $user_info,
+                "offers" => $offers,
+                "cities" => $cities,
+                "gelen" => $gelen,
+                "gonderilen" => $gonderilen
+            ]
+        );
+    }
+
+
+    public function mesajGonder(Request $request) {
+
+        $mesaj = new Mesaj();
+        $mesaj['kime'] = $request['kime'];
+        $mesaj['kimden'] = $request['kimden'];
+        $mesaj['baslik'] = $request['mesaj_baslik'];
+        $mesaj['icerik'] = $request['mesaj_aciklama'];
+        $mesaj->save();
+
+        $user_info = User::where('id',Auth::user()->id)->first()->toArray();
+        $offers = Car::where('user_id', Auth::user()->id)->get()->toArray();
+        $cities = Cities::all()->toArray();
+        $gelen = Mesaj::where('kime',Auth::user()->id)
+            ->leftJoin('users','users.id','=','mesaj_kutusu.kimden')
+            ->get()->toArray();
+        $gonderilen = Mesaj::where('kimden',Auth::user()->id)
+            ->leftJoin('users','users.id','=','mesaj_kutusu.kime')
+            ->get()->toArray();
+
+        return view('profil')->with(
+            [
+                "user_info" => $user_info,
+                "offers" => $offers,
+                "cities" => $cities,
+                "gelen" => $gelen,
+                "gonderilen" => $gonderilen
+            ]
+        );
+    }
+    
+
+
+    public function updateUser(Request $request) {
+        $data = $request->all();
+        $eski = User::where('id',Auth::user()->id)->first();
+        if (!empty($data)) {
+            $destinationPath = public_path()."/assets/uploads/";
+            if(!empty(Input::file('image'))){
+                $newName = date('YmdHis',time()).mt_rand().'.jpg';
+                Input::file('image')->move($destinationPath,$newName);
+            }
+            else if (file_exists($destinationPath.$eski->profil_foto)) {
+                $newName = $eski->profil_foto;
+            }
+            else{
+                $newName = "default_profile_picture.jpg";
+            }
+            $data['isim'] = empty($data['isim'])? $eski->name: $data['isim'];
+            $data['soyisim'] = empty($data['soyisim'])? $eski->soyisim: $data['soyisim'];
+            $data['telefon'] = empty($data['telefon'])? $eski->telefon: $data['telefon'];
+            $data['adres'] = empty($data['adres'])? $eski->adres: $data['adres'];
+
+
+            
+            User::where('id',Auth::user()->id)->update([
+                'name' => $data['isim'],
+                'soyisim' => $data['soyisim'],
+                'telefon' => $data['telefon'],
+                'il' => $data['il'],
+                'ilce' => $data['ilce'],
+                'adres' => $data['adres'],
+                'profil_foto' => $newName
+            ]);
+
+        }
+
+
+        $user_info = User::where('id',Auth::user()->id)->first()->toArray();
+        $offers = Car::where('user_id', Auth::user()->id)->get()->toArray();
+        $cities = Cities::all()->toArray();
+        $gelen = Mesaj::where('kime',Auth::user()->id)
+            ->leftJoin('users','users.id','=','mesaj_kutusu.kimden')
+            ->get()->toArray();
+        $gonderilen = Mesaj::where('kimden',Auth::user()->id)
+            ->leftJoin('users','users.id','=','mesaj_kutusu.kime')
+            ->get()->toArray();
+
+        return view('/profil')->with(
+            [
+                "user_info" => $user_info,
+                "offers" => $offers,
+                "cities" => $cities,
+                "gelen" => $gelen,
+                "gonderilen" => $gonderilen
+            ]
+        );
+}
 
 
     public function createOffer(Request $request) {
@@ -55,6 +167,19 @@ class AdminController extends Controller
             $offer['price'] = $data['price'];
             $offer['images'] = json_encode($imagesArray);
             $offer['user_id'] = Auth::user()->id;
+            $offer['yakit_id'] = $data['yakit'];
+            $offer['vites_id'] = $data['vites'];
+            $offer['kasa_id'] = $data['kasa'];
+            $offer['cekis_id'] = $data['cekis'];
+            $offer['yakit_tuketim'] = $data['yakit_tuketim'];
+            $offer['motor_hacim_id'] = $data['motor_hacim'];
+            $offer['motor_gucu_id'] = $data['motor_gucu'];
+            $offer['renk_id'] = $data['renk'];
+            $offer['garanti'] = $data['garanti'];
+            $offer['takas'] = $data['takas'];
+            $offer['durum_id'] = $data['durum'];
+            $offer['plaka_id'] = $data['plaka'];
+            $offer['kimden'] = $data['kimden'];
 
             $offer->save();
         }

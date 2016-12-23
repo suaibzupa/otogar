@@ -189,19 +189,19 @@ $(document).ready(function(){
             $.each(returnData, function (property, value) {
                 if (property == 'models') {
                     $('select[name="model"]').html('');
-                    $('select[name="model"]').append("<option value='all'>All</option>");
+                    $('select[name="model"]').append("<option value='all'>Tümü</option>");
                     $.each(value, function (index , data) {
                         $('select[name="model"]').append("<option value='"+data+"'>"+data+"</option>");
                     });
                 } else if (property == "categories") {
                     $('select[name="category"]').html('');
-                    $('select[name="category"]').append("<option value='all'>All</option>");
+                    $('select[name="category"]').append("<option value='all'>Tümü</option>");
                     $.each(value, function (index , data) {
                         $('select[name="category"]').append("<option value='"+data+"'>"+data+"</option>");
                     });
                 } else if (property == "cities") {
                     $('select[name="city"]').html('');
-                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $('select[name="city"]').append("<option value='all'>Tümü</option>");
                     $.each(value, function (index , data) {
                         $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
                     });
@@ -284,13 +284,13 @@ $(document).ready(function(){
             $.each(returnData, function (property, value) {
                 if (property == "categories") {
                     $('select[name="category"]').html('');
-                    $('select[name="category"]').append("<option value='all'>All</option>");
+                    $('select[name="category"]').append("<option value='all'>Tümü</option>");
                     $.each(value, function (index , data) {
                         $('select[name="category"]').append("<option value='"+data+"'>"+data+"</option>");
                     });
                 } else if (property == "cities") {
                     $('select[name="city"]').html('');
-                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $('select[name="city"]').append("<option value='all'>Tümü</option>");
                     $.each(value, function (index , data) {
                         $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
                     });
@@ -321,7 +321,7 @@ $(document).ready(function(){
             $.each(returnData, function (property, value) {
                 if (property == "cities") {
                     $('select[name="city"]').html('');
-                    $('select[name="city"]').append("<option value='all'>All</option>");
+                    $('select[name="city"]').append("<option value='all'>Tümü</option>");
                     $.each(value, function (index , data) {
                         $('select[name="city"]').append("<option value='"+data+"'>"+data+"</option>");
                     });
@@ -330,7 +330,6 @@ $(document).ready(function(){
         });
     });
 
-   
 
 });
 

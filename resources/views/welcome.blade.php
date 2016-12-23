@@ -8,14 +8,14 @@
     <div class="row">
         <div class="container">
             <div class="filter-area col-md-6 col-lg-6 col-sm-6 well">
-                <span class="center-block text-center">Search Filter</span>   <!--Arama kismi -->
+                <span class="center-block text-center" style="font-weight: bold; font-size: 20px;padding-bottom: 8px;">Arama Filtreleri</span>   <!--Arama kismi -->
 
                 <div class="filers-container row">
-                    <div class="col-sm-2">Manufacturer</div>
+                    <div class="col-sm-2">Marka</div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <select class="form-control" name="manufacturer" id="manufacturer">
-                                <option value="all">All</option>
+                                <option value="all">Tümü</option>
                                 @foreach($cars as $car)
                                     <option value="{{$car['vendor']}}">{{$car['vendor']}}</option>
                                 @endforeach
@@ -27,7 +27,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <select class="form-control" name="model" id="model">
-                                <option value="all">All</option>
+                                <option value="all">Tümü</option>
                                 @foreach($models as $model)
                                     <option value="{{$model['model']}}">{{$model['model']}}</option>
                                 @endforeach
@@ -35,11 +35,11 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-2">Category</div>
+                    <div class="col-sm-2">Kategori</div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <select class="form-control" name="category">
-                                <option value="all">All</option>
+                                <option value="all">Tümü</option>
                                 @foreach($categories as $category)
                                     <option value="{{$category['category']}}">{{$category['category']}}</option>
                                 @endforeach
@@ -47,21 +47,22 @@
                         </div>
                     </div>
 
-                    <div class="col-sm-2">City</div>
+                    <div class="col-sm-2">Şehir</div>
                     <div class="col-sm-4">
                         <div class="form-group">
                             <select class="form-control" name="city">
-                                <option value="all">All</option>
+                                <option value="all">Tümü</option>
                                 @foreach($cities as $city)
                                     <option value="{{$city['name']}}">{{$city['name']}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
+                    <br>
 
                     <div>
                         <div id="price-slider"></div>
-                        <span>Price Range: </span>
+                        <span>Fiyat Aralığı: </span>
                         <strong id="slider-snap-value-lower"></strong>
                         <strong>-</strong>
                         <strong id="slider-snap-value-upper"></strong>
@@ -69,14 +70,22 @@
 
                     <div class="year-slider-container">
                         <div id="year-slider"></div>
-                        <span>Year Range: </span>
+                        <span>Yıl Aralığı: </span>
                         <strong id="slider-year-snap-value-lower"></strong>
                         <strong>-</strong>
                         <strong id="slider-year-snap-value-upper"></strong>
                     </div>
 
-                    <a href="javascript:void(0)" id="search-btn" class="btn btn-success">Search</a>
-                    <span class="no-results-filter label label-warning hidden">No results for this filter</span>
+                    <a href="javascript:void(0)" id="search-btn" class="btn btn-success" style="width: 60px;">Ara</a>
+                    <br><br>
+                    <a href="/advancedSearch/2"  class="btn-link" style="color: black; padding-left: 35%">
+                    <button class="btn btn-info btn-lg" id="detaylı_ara" name="detaylı_ara" type="button">
+                        <i class="fa fa-search"></i> Detaylı Arama
+                    </button>
+                    </a>
+                    <br><br>
+
+                    <span class="no-results-filter label label-warning hidden" style="margin-left: 20%; margin-right: 22%">Yukarıdaki Filtrelere Uygun Kayıt Bulunamadı.</span>
                 </div>
             </div>
 
@@ -103,9 +112,12 @@
 
         <div class="col-lg-2">
             <select class="form-control" name="orderBy">
-                    <option value="desc">Fiyat - Azalan</option>
-                    <option value="asc">Fiyat - Artan</option>
-                    <option value="all">Yil</option>
+                    <option value="desc">Fiyata Göre Azalan</option>
+                    <option value="asc">Fiyata Göre Artan</option>
+                    <option value="yil_desc">Yila Göre Azalan</option>
+                    <option value="yil_asc">Yila Göre Artan</option>
+                    <option value="date_desc">Tarihe Göre En Güncel</option>
+
             </select>
 
         </div>
